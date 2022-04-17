@@ -1,0 +1,95 @@
+Resumen IME
+
+Error tipo I: rechazar H0 en favor de HA cuando H0 es en realidad verdadera.
+Error tipo II: no rechazar H0 en favor de HA cuando HA es en realidad verdadera.
+
+Pruebas de Hipotesis:
+Si p < a => Se rechaza H0
+Si p > a => Se falla al rechazar H0 (se acepta Ha)
+
+Prueba Z: Para inferir acerca de las medias con una o dos muestras. Adecuada si queremos asegurar o descartar 
+que la media de la población tiene un cierto valor hipotético. Se tienen las sgtes condiciones.
+- Muestra >= 30 observaciones. Si es > 30, se debe conocer la varianza de la población.
+- Observaciones deben ser indep.
+- La población sigue una distr normal.
+
+Prueba T de Student: Se utiliza para lo mismo que la prueba Z, sobre todo cuando no se conoce la desviación estándar de la población. 
+Condiciones:
+- Las observaciones son independientes entre sí (como fueron elegidas la azar y mediante un estudio confiable, se puede asumir)
+- Las observaciones provienen de una distribución cercana a la normal: Se crea un gráfico Q-Q para ver si existen valores atípicos.
+								       Se aplica shapiro-wilk con  pruebanormalidad <- shapiro.test()
+							               (Si p > alfa-> se puede asumir que la diferencia en los tiempos de ejecución se acerca razonablemente a una distribución normal)
+T de Student para dos muestras pareadas: cada observación de un conjunto tiene una correspondencia o conexión especial con exactamente una observación del otro. 
+Para examinar datos pareados: diferencia entre cada par de observaciones. (media de las dif: muestra1 - muestra2, sacarle la media y desviación estándar)
+
+T de Student para dos muestras indp: Las observaciones tienen relación con ninguna de las otras, ni influyen en su selección, ni en la misma ni en la otra muestra. (dif de medias)
+(Para ambas también se utiliza shapiro antes de utilizarlas)
+
+Poder estadistico: la probabilidad de correctamente rechazar H0 cuando es falsa (1 - beta) 
+(Si se utiliza un alfa menor, la curva de poder baja para cualquier tam del efecto)
+Tamaño del efecto: diferencia entre dos grupos, o del valor observado con respecto al valor nulo.
+power.t.test
+pwr.t.test: adecuada para una muestra, dos muestras pareadas o cuando ambas muestras tienen igual tamaño.
+pwr.t2n.test: prueba t para dos muestras independientes con diferentes tamaños
+
+Poder y prueba de proporciones
+- power.prop.test
+- pwr.p.test(h, n, sig.level, power, alternative): para pruebas con una única proporción.
+- pwr.2p.test(h, n, sig.level, power, alternative): para pruebas con dos proporciones donde ambas muestras son de igual tamaño.
+- pwr.2p2n.test(h, n1, n2, sig.level, power, alternative): para pruebas con dos proporciones y muestras de diferente tamaño.
+- bsamsize: prueba de Wilson con dos muestras, calcula los tamaños de cada grupo
+
+Prueba ji-cuadrado de pearson:
+Para inferir con proporciones cuando disponemos de dos variables categóricas y una de ellas es dicotómica (solo dos niveles).
+Condiciones:
+- Las observaciones deben ser independientes entre sí.
+- Debe haber a lo menos 5 observaciones esperadas en cada grupo.
+
+Prueba ji-cuadrado de homogeneidad: Adecuada cuando queremos determinar si dos poblaciones (la variable dicotómica) presentan las mismas proporciones en los diferentes niveles de una variable categórica. 
+Ej: ¿Son similares las preferencias de lenguaje de programación entre hombres y mujeres?
+Las hipótesis a contrastar son:
+H0: programadores hombres y mujeres tienen las mismas preferencias en lenguaje de programación favorito (ambas poblaciones muestras las mismas proporciones para cada lenguaje estudiado).
+HA: programadores hombres y mujeres tienen preferencias distintas en lenguajes de programación favorito.
+
+Prueba ji-cuadrado de bondad de ajuste: Comprueba si una distribución de frecuencias observada se asemeja a una
+distribución esperada. Usualmente se emplea para comprobar si una muestra es representativa de la
+población.  Ej: "...Ante el inminente riesgo de movilizaciones, el gerente necesita demostrar que el grupo seleccionado es una muestra representativa de sus programadores."
+
+Hipótesis a contrastar son:
+H0: las proporciones de especialistas en cada lenguaje son las mismas para la nómina y la muestra.
+HA: las proporciones de especialistas en cada lenguaje son diferentes en la nómina que en la muestra.
+
+Prueba ji-cuadrado de independencia: Determina si dos variables categóricas, de una misma población, son estadísticamente independientes o si, 
+por el contrario, están relacionadas.
+
+En este caso, las hipótesis a docimar son:
+H0: las variables clase y forma del sombrero son independientes.
+HA: las variables clase y forma del sombrero están relacionadas.
+
+Pruebas para muestras pequeñas: a lo menos 5 observaciones.
+Prueba exacta de Fisher: Alternativa a la prueba ji-cuadrado de independencia en el caso de que ambas variables sean dicotómicas. 
+Las hipótesis a contrastar son:
+H0: las variables son independientes.
+HA: las variables están relacionadas.
+
+Prueba de mcNemar: Cuando una misma característica, con respuesta dicotómica, se mide en dos ocasiones diferentes para los mismos sujetos 
+(muestras pareadas) y queremos determinar si se produce o no un cambio significativo entre ambas mediciones. 
+Las hipótesis asociadas a la prueba de mcNemar son:
+H0: no hay cambios significativos en las respuestas.
+HA: sí hay cambios significativos en las respuestas.
+
+Prueba de Cochran: Extensión de la prueba de mcNemar, adecuada cuando la variable de respuesta es dicotómica y la variable independiente tiene más 
+de dos observaciones pareadas (cuando ambas variables son dicotómicas, esta prueba es equivalente a la de mcNemar).
+
+Las hipótesis contrastadas por la prueba Q de Cochran son:
+
+H0: la proporción de “éxitos” es la misma para todos los grupos.
+HA: la proporción de “éxitos” es distinta para al menos un grupo.
+
+Condiciones:
+- La variable de respuesta es dicotómica.
+- La variable independiente es categórica.
+- Las observaciones son independientes entre sí.
+- El tamaño de la muestra es lo suficientemente grande. Glen (2016a) sugiere que n · k ≥ 24, donde n es
+el tamaño de la muestra (la cantidad de instancias, para el ejemplo) y k, la cantidad de niveles en la
+variable independiente.
